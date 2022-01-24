@@ -1,27 +1,24 @@
 name: Continous Integration and Deployment for BY
 
 on:
- push:
-   branches:
-     -master
+  push:
+    branches:
+      - master
+  workflow_dispatch:
 
 jobs:
- build:
-  runs-on: ubuntu-latest
+  build:
+    runs-on: ubuntu-latest
 
-  steps:
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
 
-    - name: Check out code
-      uses: actions/checkout@v2
+      - name: Set up .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '5.0.x'
+          include-prerelease: true
 
-    - name: Set up .NET Core
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: '5.0.x'
-        include-prerelease: true
-
-    - name: Build the app with .NET Core
-      run: dotnet build --configuration Release
-
-    #  - name: Unit testing
-    #    run: dotnet test --configuration Release
+      - name: Build the app with dotnet
+        run: dotnet build --configuration Release

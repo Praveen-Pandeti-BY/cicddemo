@@ -22,3 +22,13 @@ jobs:
 
       - name: Build the app with dotnet
         run: dotnet build --configuration Release
+
+      - name: Publish app
+        run: dontnet publish --configuration Release -o ./out
+
+      - name: Deploy to Azure
+        uses: azure/webapps-deploy@v2
+        with:
+           app-name: 'bydevops'
+           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_AEAE34D5F39240529592C951F6A8F01B }}
+           package: ./out

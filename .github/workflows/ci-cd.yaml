@@ -24,7 +24,7 @@ jobs:
         run: dotnet build --configuration Release
 
       - name: Publish app
-        run: dontnet publish --configuration Release -o ./out
+        run: dotnet publish --configuration Release -o ./out
 
       - name: Deploy to Azure
         uses: azure/webapps-deploy@v2
